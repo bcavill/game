@@ -77,8 +77,6 @@ class game():
         choice = choice.lower()
         return choice
 
-if __name__ == 'main':
+if __name__ == '__main__':
     Game = game()
-    print Game.char
-    print Game.new_game()
-    print Game.loop()
+    Game.new_game()
