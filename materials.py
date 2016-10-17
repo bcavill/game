@@ -1,31 +1,13 @@
-class wood():
+class Material(object):
+    def __init__(self, name='Material', damage=0, value=0):
+        self.name = name
+        self.damage = damage
+        self.value = value
 
-    def __init__(self):
-        self.damage = 3
-        self.value = 7
-
-class bronze():
-
-    def __init__(self):
-        self.damage = 5
-        self.value = 16
-
-class iron():
-
-    def __init__(self):
-        self.damage = 12
-        self.value = 23
-
-class gold():
-
-    def __init__(self):
-        self.damage = 9
-        self.value = 80
-
-class steel():
-
-    def __init(self):
-        self.damage = 20
-        self.value = 30
-
-materials = {'wood': wood(), 'bronze': bronze(), 'iron': iron(), 'gold': gold(), 'steel': steel()}
+materials = {
+    'wood': Material('wood', 3, 5),
+    'bronze': Material('bronze', 5, 16),
+    'iron': Material('iron', 12, 23),
+    'gold': Material('gold', 9, 80),
+    'steel': Material('steel', 20, 35)
+}

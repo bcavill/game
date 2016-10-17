@@ -1,65 +1,50 @@
-from materials import *
 from potencies import *
+from materials import *
 
-class item():
+class item(object):
 
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.value = 0
         self.equipable = False
         self.useable = False
 
     def sell(self, seller, buyer):
-        seller.gold = seller.gold + self.value
-        buyer.gold = buyer.gold - self.value
-        seller.inventory.remove(self)
-        buyer.inventory.append(self)
-        print "%s %s purchased %s from %s %s for %s gold." % (seller.__class__.__name__, seller.name, self.__class__.__name__, buyer.__class__.__name__, buyer.name, self.value)
+        if buyer.gold >= self.value:
+            seller.gold = seller.gold + self.value
+            buyer.gold = buyer.gold - self.value
+            seller.inventory.remove(self)
+            buyer.inventory.append(self)
+            return True
+        return False
 
 class weapon(item):
 
-    def __init__(self, material):
-        self.material = materials[material]
-        self.damage = 0 + self.material.damage
-        self.value = 0 + self.material.value
-        self.equipable = True
-        self.useable = False
-        
-class dagger(weapon):
-
-    def __init__(self, material):
-        self.material = materials[material]
-        self.damage = 5 + self.material.damage
-        self.value = 5 + self.material.value
-        self.equipable = True
-        self.useable = False
-        
-class sword(weapon):
-
-    def __init__(self, material):
-        self.material = materials[material]
-        self.damage = 12 + self.material.damage
-        self.value = 12 + self.material.value
+    def __init__(self, name='dagger', material='wood'):
+        weapon = weapons[name]
+        self.name = name
+        self.strength = materials[material]
+        self.damage = weapon['damage'] + self.strength.damage
+        self.value = weapon['value'] + self.strength.value
         self.equipable = True
         self.useable = False
 
-class club(weapon):
+class health(item):
 
-    def __init__(self, material):
-        self.material = materials[material]
-        self.damage = 9 + self.material.damage
-        self.value = 9 + self.material.value
-        self.equipable = True
-        self.useable = False
-
-class potion(item):
-
-    def __init__(self, potency):
-        self.potency = potencies[potency]
-        self.hp = 20 + self.potency.hp
-        self.value = 25 + self.potency.value
+    def __init__(self, name='potion', potency='weak'):
+        self.name = name
+        self.strength = potencies[potency]
+        self.hp = 20 + self.strength.hp
+        self.value = 25 + self.strength.value
         self.equipable = False
         self.useable = True
-        
+
     def use(self, target):
         target.hp = target.hp + self.hp
-        print "%s %s used %s and healed %s points of health" % (target.__class__.__name__, target.name, self.__class__.__name__, self.hp)
+        print "%s %s used %s %s and healed %s points of health" % (target.__class__.__name__, target.name, self.strength.name, self.name, self.hp)
+
+weapons = {
+    'dagger': {'damage': 5, 'value': 5},
+    'sword': {'damage': 12, 'value': 12},
+    'club': {'damage': 9, 'value': 9}
+}

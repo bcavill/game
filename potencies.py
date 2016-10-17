@@ -1,25 +1,13 @@
-class weak():
+class Potency(object):
 
-    def __init__(self):
-        self.hp = 5
-        self.value = 20
-
-class mild():
-
-    def __init__(self):
-        self.hp = 30
-        self.value = 75
-
-class potent():
-
-    def __init__(self):
-        self.hp = 80
-        self.value = 150
-
-class strong():
-
-    def __init__(self):
-        self.hp = 250
-        self.value = 460
+    def __init__(self, name, hp, value):
+        self.name = name
+        self.hp = hp
+        self.value = value
         
-potencies = {'weak': weak(), 'mild': mild(), 'potent': potent(), 'strong': strong()}
+potencies = {
+    'weak': Potency('weak', 15, 20),
+    'mild': Potency('mild', 40, 75),
+    'potent': Potency('potent', 100, 150),
+    'strong': Potency('strong', 200, 280)
+}
