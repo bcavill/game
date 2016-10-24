@@ -5,9 +5,9 @@ class Material(object):
         self.value = value
 
 materials = {
-    'wood': Material('wood', 3, 5),
+    'wood': Material('wood', 3, 10),
     'bronze': Material('bronze', 5, 16),
-    'iron': Material('iron', 12, 23),
+    'iron': Material('iron', 12, 30),
     'gold': Material('gold', 9, 80),
-    'steel': Material('steel', 20, 35)
+    'steel': Material('steel', 20, 50)
 }
