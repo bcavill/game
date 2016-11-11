@@ -27,8 +27,13 @@ class character():
         if hit_chance <= 0.2:
             print '%s %ss\' attack missed \n' % (self.__class__.__name__, self.name)
             return
+
+        if self.weapon != None:
+            dmg = self.damage + self.weapon.damage
+        else:
+            dmg = self.damage
         
-        self.target.attacked(self.damage + self.weapon.damage, self)
+        self.target.attacked(dmg, self)
 
     def attacked(self, wound, attacker):
         wound = wound - float(self.defense) / 100 * random.randint(30, 60)
