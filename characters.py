@@ -20,13 +20,7 @@ class character():
         self.weapon = None
         
     def attack(self):
-        hit_chance = random.random()
-        
         print '%s %s attacked %s %s' % (self.__class__.__name__, self.name, self.target.__class__.__name__, self.target.name)
-        
-        if hit_chance <= 0.2:
-            print '%s %ss\' attack missed \n' % (self.__class__.__name__, self.name)
-            return
 
         if self.weapon != None:
             dmg = self.damage + self.weapon.damage
@@ -36,12 +30,19 @@ class character():
         self.target.attacked(dmg, self)
 
     def attacked(self, wound, attacker):
+        if self.target == None:
+            self.target=attacker
+
+        hit_chance = random.random()
+
+        if hit_chance <= 0.2:
+            print '%s %ss\' attack missed \n' % (attacker.__class__.__name__, attacker.name)
+            return
+
         wound = wound - float(self.defense) / 100 * random.randint(30, 60)
         self.hp = self.hp - wound
         print '%s %s took %s points of damage from %s %s' % (self.__class__.__name__, self.name, wound, attacker.__class__.__name__, attacker.name)
-        
-        if self.target == None:
-            self.target=attacker
+
         self.is_dead(attacker)
 
     def is_dead(self, attacker):
