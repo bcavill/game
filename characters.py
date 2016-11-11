@@ -44,7 +44,8 @@ class character():
             print '%s has been defeated. %s is victorious!' % (self.name, attacker.name)
             del self.Game.enemies[len(self.Game.enemies) - 1]
             attacker.victory(self.level)
-            attacker.find_target()
+            attacker.target = None
+            self.Game.in_combat = False
         else:
             print '%s %s\'s hp fell to %s\n' % (self.__class__.__name__, self.name, self.hp)
 
@@ -124,6 +125,7 @@ class player(character):
             return False
 
         self.target = self.Game.enemies[enemy_count - 1]
+        self.Game.in_combat = True
         print 'Now attacking {} {}'.format(self.target.__class__.__name__, self.target.name)
         return True
 

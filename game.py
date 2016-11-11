@@ -15,7 +15,7 @@ class game():
 
         print('Greetings %s, a trol is attacking our village please help us.') % self.char.name
         self.spawn_enemy(characters.trol(self), 1)
-        self.in_combat = True
+        self.char.find_target()
 
         while True:
             self.loop()
@@ -34,8 +34,6 @@ class game():
                         choice = self.sanitize(choice)
 
                         if choice == 'attack':
-                            if not self.char.target:
-                                self.char.find_target()
                             self.char.attack()
                             turn = 1
                             break
@@ -43,13 +41,9 @@ class game():
                             self.char.use_item()
                         else:
                             print "That is not a valid option try again."
-                elif self.char.target.hp >= 0:
-                    self.char.target.attack()
-                    print self.char.target
-                    turn=0
                 else:
-                    self.char.find_target()
-                    turn = 0
+                    self.char.target.attack()
+                    turn=0
         else:
             while True:
                 choice = raw_input('What would you like to do? [\'Quit\', \'Visit the store\', \'Go hunting\'] ')
@@ -60,7 +54,7 @@ class game():
                     self.merchant.barter()
                 elif choice == 'go hunting':
                     self.spawn_enemy()
-                    self.in_combat = True
+                    self.char.find_target()
                     break
                 elif choice == 'quit':
                     self.exit()
