@@ -30,7 +30,7 @@ class game():
 
                 if turn == 0:
                     while True:
-                        choice = raw_input('What should you do? [\'Attack\', \'Use an item\'] ')
+                        choice = raw_input('What should you do? [\'Attack\', \'Use an item\', \'Cast a spell\'] ')
                         choice = self.sanitize(choice)
 
                         if choice == 'attack':
@@ -39,6 +39,10 @@ class game():
                             break
                         elif choice == 'use an item':
                             self.char.use_item()
+                        elif choice == 'cast a spell':
+                            self.char.cast_spell()
+                            turn = 1
+                            break
                         else:
                             print "That is not a valid option try again."
                 else:

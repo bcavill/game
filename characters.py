@@ -1,5 +1,6 @@
 import items
 import random
+import spells
 
 names = ['Kolanji', 'Zakaro', 'Tumadi', 'Rikako', 'Jinmalan', 'Ichako', 'Dorizin', 'Makrokin', 'Kinjabal', 'Venkoa', 'Dazro', 'Limdaka', 'Jumanji', 'Ouji']
 
@@ -67,6 +68,7 @@ class player(character):
         self.damage = 10 * self.level
         self.target = None
         self.inventory = [items.health('potion', 'weak')]
+        self.spells = [spells.fireball('fireball')]
         self.xp = 0
         self.gold = 50
         self.weapon = items.weapon('dagger', 'bronze')
@@ -121,6 +123,25 @@ class player(character):
                         self.weapon = self.inventory[x]
                         del self.inventory[x]
                         break
+                if x == len(self.inventory) - 1:
+                    print "You don't know that spell."
+
+    def cast_spell(self):
+        while True:
+            items = ['none']
+            for spell in self.spells:
+                items.append(spell.name)
+            spell = raw_input('You have {} available to cast. Which Spell should you cast? '.format(items))
+            spell = self.Game.sanitize(spell)
+
+            if spell == 'none':
+                break
+
+            for x, i in enumerate(self.spells):
+                if i.name == spell:
+                    spell = i
+                    self.spells[x].cast(self, self.target)
+                    break
                 if x == len(self.inventory) - 1:
                     print "You don't have %s in your inventory" % item
 
