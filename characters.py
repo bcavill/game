@@ -5,8 +5,8 @@ import spells
 names = ['Kolanji', 'Zakaro', 'Tumadi', 'Rikako', 'Jinmalan', 'Ichako', 'Dorizin', 'Makrokin', 'Kinjabal', 'Venkoa', 'Dazro', 'Limdaka', 'Jumanji', 'Ouji']
 
 def rand_name():
-	i = random.randint(0, len(names) - 1)
-        return names[i]
+    i = random.randint(0, len(names) - 1)
+    return names[i]
 
 class character():
 
@@ -161,7 +161,7 @@ class trol(character):
     def __init__(self, Game):
         self.Game = Game
         self.level = Game.char.level
-	self.hp = 120 + 10 * self.level
+        self.hp = 120 + 10 * self.level
         self.name = rand_name()
         self.defense = 5 * self.level
         self.damage = 6  * self.level
