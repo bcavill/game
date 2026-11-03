@@ -10,10 +10,10 @@ class game():
         self.in_combat = False
 
     def new_game(self):
-        name = raw_input('What is thy name brave warrior? ')
+        name = input('What is thy name brave warrior? ')
         self.char.name = name
 
-        print('Greetings %s, a trol is attacking our village please help us.') % self.char.name
+        print('Greetings %s, a trol is attacking our village please help us.' % self.char.name)
         self.spawn_enemy(characters.trol(self), 1)
         self.char.find_target()
 
@@ -30,7 +30,7 @@ class game():
 
                 if turn == 0:
                     while True:
-                        choice = raw_input('What should you do? [\'Attack\', \'Use an item\', \'Cast a spell\'] ')
+                        choice = input('What should you do? [\'Attack\', \'Use an item\', \'Cast a spell\'] ')
                         choice = self.sanitize(choice)
 
                         if choice == 'attack':
@@ -44,13 +44,13 @@ class game():
                             turn = 1
                             break
                         else:
-                            print "That is not a valid option try again."
+                            print("That is not a valid option try again.")
                 else:
                     self.char.target.attack()
                     turn=0
         else:
             while True:
-                choice = raw_input('What would you like to do? [\'Quit\', \'Visit the store\', \'Go hunting\'] ')
+                choice = input('What would you like to do? [\'Quit\', \'Visit the store\', \'Go hunting\'] ')
                 choice = self.sanitize(choice)
 
                 if choice == 'visit the store':

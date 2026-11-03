@@ -9,7 +9,7 @@ class spell(object):
         self.element = None
 
     def cast(self, caster, target):
-        print(" {0} cast {1} at {2}").format(caster.name, self.name, target.name)
+        print(" {0} cast {1} at {2}".format(caster.name, self.name, target.name))
         target.attacked(self.damage, caster)
 
 class fireball(object):
@@ -20,5 +20,5 @@ class fireball(object):
         self.element = 'fire'
 
     def cast(self, caster, target):
-        print(" {0} cast {1} at {2}").format(caster.name, self.name, target.name)
+        print(" {0} cast {1} at {2}".format(caster.name, self.name, target.name))
         target.attacked(self.damage, caster)

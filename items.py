@@ -41,7 +41,7 @@ class health(item):
 
     def use(self, target):
         target.hp = target.hp + self.hp
-        print "%s %s used %s %s and healed %s points of health" % (target.__class__.__name__, target.name, self.strength.name, self.name, self.hp)
+        print("%s %s used %s %s and healed %s points of health" % (target.__class__.__name__, target.name, self.strength.name, self.name, self.hp))
 
 weapons = {
     'dagger': {'damage': 5, 'value': 20},

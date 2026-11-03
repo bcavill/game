@@ -21,7 +21,7 @@ class character():
         self.weapon = None
         
     def attack(self):
-        print '%s %s attacked %s %s' % (self.__class__.__name__, self.name, self.target.__class__.__name__, self.target.name)
+        print('%s %s attacked %s %s' % (self.__class__.__name__, self.name, self.target.__class__.__name__, self.target.name))
 
         if self.weapon != None:
             dmg = self.damage + self.weapon.damage
@@ -37,24 +37,24 @@ class character():
         hit_chance = random.random()
 
         if hit_chance <= 0.2:
-            print '%s %ss\' attack missed \n' % (attacker.__class__.__name__, attacker.name)
+            print('%s %ss\' attack missed \n' % (attacker.__class__.__name__, attacker.name))
             return
 
         wound = wound - float(self.defense) / 100 * random.randint(30, 60)
         self.hp = self.hp - wound
-        print '%s %s took %s points of damage from %s %s' % (self.__class__.__name__, self.name, wound, attacker.__class__.__name__, attacker.name)
+        print('%s %s took %s points of damage from %s %s' % (self.__class__.__name__, self.name, wound, attacker.__class__.__name__, attacker.name))
 
         self.is_dead(attacker)
 
     def is_dead(self, attacker):
         if self.hp <= 0:
-            print '%s has been defeated. %s is victorious!' % (self.name, attacker.name)
+            print('%s has been defeated. %s is victorious!' % (self.name, attacker.name))
             del self.Game.enemies[len(self.Game.enemies) - 1]
             attacker.victory(self.level)
             attacker.target = None
             self.Game.in_combat = False
         else:
-            print '%s %s\'s hp fell to %s\n' % (self.__class__.__name__, self.name, self.hp)
+            print('%s %s\'s hp fell to %s\n' % (self.__class__.__name__, self.name, self.hp))
 
 class player(character):
 
@@ -80,18 +80,18 @@ class player(character):
         self.gold = self.gold + gold_gained
         self.hp = self.max_hp
 
-        print "%s %s gained %s xp and recovered %s gold" % (self.__class__.__name__, self.name, xp_gained, gold_gained)
+        print("%s %s gained %s xp and recovered %s gold" % (self.__class__.__name__, self.name, xp_gained, gold_gained))
 
         if self.xp >= self.level * 100:
             self.level_up()
 
     def is_dead(self, attacker):
         if self.hp <= 0:
-            print '%s has been defeated. %s is victorious!' % (self.name, attacker.name)
-            print 'GAME OVER'
+            print('%s has been defeated. %s is victorious!' % (self.name, attacker.name))
+            print('GAME OVER')
             self.Game.exit()
         else:
-            print '%s %s\'s hp fell to %s\n' % (self.__class__.__name__, self.name, self.hp)
+            print('%s %s\'s hp fell to %s\n' % (self.__class__.__name__, self.name, self.hp))
 
     def level_up(self):
         self.xp = 0
@@ -99,14 +99,14 @@ class player(character):
         self.hp = 100 + 10 * self.level
         self.defense = 10 * self.level
         self.damage = 10 * self.level
-        print '%s %s has reached level %s!' % (self.__class__.__name__, self.name, self.level)
+        print('%s %s has reached level %s!' % (self.__class__.__name__, self.name, self.level))
 
     def use_item(self):
         while True:
             items = ['none']
             for thing in self.inventory:
                 items.append('{} {}'.format(thing.strength.name, thing.name))
-            item = raw_input('You have {} in your inventory. Which item would you like to use? '.format(items))
+            item = input('You have {} in your inventory. Which item would you like to use? '.format(items))
             item = self.Game.sanitize(item)
             
             if item == 'none':
@@ -124,14 +124,14 @@ class player(character):
                         del self.inventory[x]
                         break
                 if x == len(self.inventory) - 1:
-                    print "You don't know that spell."
+                    print("You don't know that spell.")
 
     def cast_spell(self):
         while True:
             items = ['none']
             for spell in self.spells:
                 items.append(spell.name)
-            spell = raw_input('You have {} available to cast. Which Spell should you cast? '.format(items))
+            spell = input('You have {} available to cast. Which Spell should you cast? '.format(items))
             spell = self.Game.sanitize(spell)
 
             if spell == 'none':
@@ -143,7 +143,7 @@ class player(character):
                     self.spells[x].cast(self, self.target)
                     break
                 if x == len(self.inventory) - 1:
-                    print "You don't have %s in your inventory" % item
+                    print("You don't have %s in your inventory" % item)
 
     def find_target(self):
         enemy_count = len(self.Game.enemies)
@@ -153,7 +153,7 @@ class player(character):
 
         self.target = self.Game.enemies[enemy_count - 1]
         self.Game.in_combat = True
-        print 'Now attacking {} {}'.format(self.target.__class__.__name__, self.target.name)
+        print('Now attacking {} {}'.format(self.target.__class__.__name__, self.target.name))
         return True
 
 class trol(character):
@@ -194,17 +194,17 @@ class merchant():
         for i in range(random.randrange(5, 15)):
             item = random.randint(0, 1)
             if item == 0:
-                weapon = random.choice(items.weapons.keys())
-                material = random.choice(items.materials.keys())
+                weapon = random.choice(list(items.weapons.keys()))
+                material = random.choice(list(items.materials.keys()))
                 self.inventory.append(items.weapon(weapon, material))
             elif item == 1:
-                self.inventory.append(items.health('potion', random.choice(items.potencies.keys())))
+                self.inventory.append(items.health('potion', random.choice(list(items.potencies.keys()))))
 
     def barter(self):
         while True:
-            print 'You have {} gold'.format(self.Game.char.gold)
-            print 'The merchant has {} gold'.format(self.gold)
-            action = raw_input('How can I help you today? [\'none\', \'buy\', \'sell\'] ')
+            print('You have {} gold'.format(self.Game.char.gold))
+            print('The merchant has {} gold'.format(self.gold))
+            action = input('How can I help you today? [\'none\', \'buy\', \'sell\'] ')
             action = self.Game.sanitize(action)
             if action == 'none':
                 break
@@ -226,13 +226,13 @@ class merchant():
                 for thing in inv:
                     items.append('{} {}'.format(thing.strength.name, thing.name))
                     items.append(thing.value)
-                item = raw_input(question.format(items))
+                item = input(question.format(items))
                 for x, i in enumerate(inv):
                     thing = '{} {}'.format(i.strength.name, i.name)
                     if thing == item:
                         i.sell(args[0], args[1])
-                        print confirm_msg.format(thing, i.value)
+                        print(confirm_msg.format(thing, i.value))
                         break
 
                     if x == len(inv) - 1:
-                        print error_msg.format(item)
+                        print(error_msg.format(item))
